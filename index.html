@@ -3,10 +3,16 @@
       <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
       <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
       <py-env>
+        - './static/wheels/category_encoders-2.5.0-py2.py3-none-any.whl'
+        - './static/wheels/pandas_profiling-3.2.0-py2.py3-none-any.whl'
+        - './static/wheels/pycaret-2.3.10-py3-none-any.whl'
+        - pandas
+        - sklearn
+        - pandas_profiling
         - numpy
         - matplotlib
         - paths:
-          - ./data.py
+          - ./app.py
       </py-env>
     </head>
 
@@ -15,6 +21,7 @@
     <div id="plot"></div>
     <py-script output="plot">
       import matplotlib.pyplot as plt
+      import app.py
       from data import make_x_and_y
 
       x, y = make_x_and_y(n=1000)
