@@ -3,25 +3,51 @@
       <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
       <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-        <py-env>
-        - './static/wheels/category_encoders-2.5.0-py2.py3-none-any.whl'
-        - './static/wheels/pandas_profiling-3.2.0-py2.py3-none-any.whl'
-        - './static/wheels/pycaret-2.3.10-py3-none-any.whl'
-        - sklearn        
+<py-env>
+        
+        - scikit-learn                
         - numpy
         - matplotlib
-        - pandas                       
-        - paths:
-          - ./app.py
+        - pandas
+        - './static/wheels/category_encoders-2.5.0-py2.py3-none-any.whl
+        - './static/wheels/pycaret-2.3.10-py3-none-any.whl'
+        - './static/wheels/pandas_profiling-3.2.0-py2.py3-none-any.whl'
+                               
+        
       </py-env>
     </head>
 
   <body>
-    <b><p>Today is <u><label id='today'></label></u></p></b>
+    
     <br>
-    <div id="pi" class="alert alert-primary"></div>
+    
     <py-script>
-     import app.py
+
+
+import numpy as np
+from pycaret.classification import *
+import category_encoders as ce
+from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+from pandas_profiling import ProfileReport
+import pickle
+import pandas as pd
+df = pd.read_csv("./500_Person_Gender_Height_Weight_Index.csv")
+def ordinal_encoding(df,col,mapping):
+    ordinal_encoder = ce.OrdinalEncoder(cols = [col],return_df = True,mapping = [{'col':col,'mapping':mapping}])
+    df_final = ordinal_encoder.fit_transform(df)
+    return df_final
+mapping = {"Male":0,"Female":1}
+df_final = ordinal_encoding(df,"Gender",mapping)
+df_final
+experiment = setup(df_final,target="Index")
+X = df_final.drop("Index",axis = 1)
+Y = df_final["Index"]
+X_train,X_test,Y_train,Y_test = train_test_split(X,Y,random_state=27,test_size = 0.2,stratify = Y)
+clf = QuadraticDiscriminantAnalysis()
+clf.fit(X_train,Y_train)
+
     </py-script>
   </body>
 </html>
