@@ -22,7 +22,7 @@
     <br>
     
     <py-script>
-import numpy as np
+
 import category_encoders as ce
 from pycaret.classification import *
 from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
@@ -30,6 +30,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from pandas_profiling import ProfileReport
 import pickle
+import numpy as np
 import pandas as pd
 df = pd.read_csv("./500_Person_Gender_Height_Weight_Index.csv")
 def ordinal_encoding(df,col,mapping):
