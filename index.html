@@ -1,5 +1,6 @@
 <html>
     <head>
+      <title>Single pafe App to check if a message is spam </title>
       <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
       <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
@@ -18,6 +19,7 @@
     <py-script>
 import numpy as np
 import pandas as pd
+from js import document
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
@@ -41,11 +43,25 @@ text_clf = Pipeline([('tfidf', TfidfVectorizer()),
 text_clf.fit(X_train, y_train)
 predictions = text_clf.predict(X_test)
 res = list()
-print ("Enter a messsage to check if it is a spam")
-res.append( input ("Enter a messsage to check if it is a spam: "))
+<div>
+      <input id="new-task-content" class="border flex-1 mr-3 border-gray-300 p-2 rounded" type="text">
+      <button id="new-task-btn" class="p-2 text-white bg-blue-600 border border-blue-600 rounded" type="submit" pys-onClick="add_task">
+        Add task
+      </button>
+    </div>
+<form action="">
+   <p> <label for="userinput">Enter a messsage to check if it is a spam:</label> </p>
+   <textarea id="w3review" name="w3review" rows="4" cols="50">
+    <input type="text" name="username" id="username"> </textarea>
+  <br>
+  <input type="submit" value="Submit">
+</form>
+ 
+userRespnse = document.getElementById("userinput")
+res.append( userRespnse )
 
 ans = text_clf.predict(res)[0]
-print ("{}, is not a spam".format(res))if ans == "ham" else print ("{}, is a spam".format(res))
+print ("{}, is not a spam".format(res)[0])if ans == "ham" else print ("{}, is a spam".format(res)[0])
     </py-script>
   </body>
 </html>
