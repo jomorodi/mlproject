@@ -43,16 +43,11 @@ text_clf = Pipeline([('tfidf', TfidfVectorizer()),
 text_clf.fit(X_train, y_train)
 predictions = text_clf.predict(X_test)
 res = list()
-<div>
-      <input id="new-task-content" class="border flex-1 mr-3 border-gray-300 p-2 rounded" type="text">
-      <button id="new-task-btn" class="p-2 text-white bg-blue-600 border border-blue-600 rounded" type="submit" pys-onClick="add_task">
-        Add task
-      </button>
-    </div>
+
 <form action="">
-   <p> <label for="userinput">Enter a messsage to check if it is a spam:</label> </p>
-   <textarea id="w3review" name="w3review" rows="4" cols="50">
-    <input type="text" name="username" id="username"> </textarea>
+  <p> <label for="userinput">Enter a messsage to check if it is a spam:</label> </p>
+  <textarea id="w3review" name="w3review" rows="4" cols="50">
+  <input type="text" name="username" id="username"> </textarea>
   <br>
   <input type="submit" value="Submit">
 </form>
