@@ -8,7 +8,7 @@
 - matplotlib
 - pandas
 - paths:
-  - ./500_Person_Gender_Height_Weight_Index.csv
+  - ./spam_ham_dataset.csv
           
       </py-env>    
     </head>
@@ -18,24 +18,32 @@
     <py-script>
 import numpy as np
 import pandas as pd
-import sklearn.preprocessing as skp
-print ("enter your height to predict your bodymass index")
-df = pd.read_csv("./500_Person_Gender_Height_Weight_Index.csv")
-def ordinal_encoding(df,col,mapping):
-    ordinal_encoder = skp.OrdinalEncoder(cols = [col],return_df = True,mapping = [{'col':col,'mapping':mapping}])
-    df_final = ordinal_encoder.fit_transform(df)
-    return df_final
-mapping = {"Male":0,"Female":1}
-df_final = ordinal_encoding(df,"Gender",mapping)
-df_final
-experiment = setup(df_final,target="Index")
-X = df_final.drop("Index",axis = 1)
-Y = df_final["Index"]
-X_train,X_test,Y_train,Y_test = train_test_split(X,Y,random_state=27,test_size = 0.2,stratify = Y)
-clf = QuadraticDiscriminantAnalysis()
-clf.fit(X_train,Y_train)     
-Y_pred = clf.predict(X_test)
-print (Y_pred)
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfTransformer
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.svm import LinearSVC
+df=pd.read_csv('./spam_ham_dataset.csv' )
+X = df['text'] 
+y = df['label']
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
+count_vect = CountVectorizer()
+X_train_counts = count_vect.fit_transform(X_train)
+tfidf_transformer = TfidfTransformer()
+X_train_tfidf = tfidf_transformer.fit_transform(X_train_counts)
+vectorizer = TfidfVectorizer()
+X_train_tfidf = vectorizer.fit_transform(X_train)
+clf = LinearSVC()
+clf.fit(X_train_tfidf,y_train)
+from sklearn.pipeline import Pipeline
+text_clf = Pipeline([('tfidf', TfidfVectorizer()),
+                     ('clf', LinearSVC()),])
+text_clf.fit(X_train, y_train)
+predictions = text_clf.predict(X_test)
+res = list()
+res = input ("Enter a messsage to check if it is a spam: ")
+ans = text_clf.predict(res)[0]
+print ("{}, is not a spam".format(res))if ans == "ham" else print ("{}, is a spam".format(res))
     </py-script>
   </body>
 </html>
