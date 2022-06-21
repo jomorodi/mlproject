@@ -16,7 +16,7 @@
 
   <body>
     <div id="mlproject"></div>  
-<form action="index" method="post" id="index">
+<form action='index.html'  id='index'>
 <p> <label for="userinput"> Enter a messsage to check if it is a spam: </label> </p>
 <textarea id="userinput" name="userinput" rows="4" cols="50"> </textarea>
 <br>
@@ -51,7 +51,7 @@ predictions = text_clf.predict(X_test)
 res = list()
 
 
-userRespnse = document.getElementById("userinput")
+userRespnse = document.getElementById('userinput')
 res.append( userRespnse.value )
 
 ans = text_clf.predict(res)[0]
