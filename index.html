@@ -18,10 +18,11 @@
     <py-script>
 import numpy as np
 import pandas as pd
+import sklearn.preprocessing as skp
 print ("enter your height to predict your bodymass index")
 df = pd.read_csv("./500_Person_Gender_Height_Weight_Index.csv")
 def ordinal_encoding(df,col,mapping):
-    ordinal_encoder = ce.OrdinalEncoder(cols = [col],return_df = True,mapping = [{'col':col,'mapping':mapping}])
+    ordinal_encoder = skp.OrdinalEncoder(cols = [col],return_df = True,mapping = [{'col':col,'mapping':mapping}])
     df_final = ordinal_encoder.fit_transform(df)
     return df_final
 mapping = {"Male":0,"Female":1}
