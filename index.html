@@ -53,7 +53,7 @@ res = list()
 </form>
  
 userRespnse = document.getElementById("userinput")
-res.append( userRespnse )
+res.append( userRespnse.value )
 
 ans = text_clf.predict(res)[0]
 print ("{}, is not a spam".format(res)[0])if ans == "ham" else print ("{}, is a spam".format(res)[0])
