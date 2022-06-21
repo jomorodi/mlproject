@@ -41,7 +41,8 @@ text_clf = Pipeline([('tfidf', TfidfVectorizer()),
 text_clf.fit(X_train, y_train)
 predictions = text_clf.predict(X_test)
 res = list()
-res = input ("Enter a messsage to check if it is a spam: ")
+res.append( input ("Enter a messsage to check if it is a spam: "))
+
 ans = text_clf.predict(res)[0]
 print ("{}, is not a spam".format(res))if ans == "ham" else print ("{}, is a spam".format(res))
     </py-script>
