@@ -15,7 +15,13 @@
     </head>
 
   <body>
-    <div id="mlproject"></div>    
+    <div id="mlproject"></div>  
+<form action="index.html" method="post" id="index">
+<p> <label for="userinput"> Enter a messsage to check if it is a spam: </label> </p>
+<textarea id="userinput" name="userinput" rows="4" cols="50"> </textarea>
+<br>
+<input type="submit" value="Submit">
+</form>  
     <py-script>
 import numpy as np
 import pandas as pd
@@ -44,14 +50,7 @@ text_clf.fit(X_train, y_train)
 predictions = text_clf.predict(X_test)
 res = list()
 
-<form action="">
-<p> <label for="userinput"> Enter a messsage to check if it is a spam: </label> </p>
-<textarea id="w3review" name="w3review" rows="4" cols="50">
-<input type="text" name="username" id="username"> </textarea>
-<br>
-<input type="submit" value="Submit">
-</form>
- 
+
 userRespnse = document.getElementById("userinput")
 res.append( userRespnse.value )
 
