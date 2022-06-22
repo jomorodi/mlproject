@@ -16,13 +16,14 @@
 
   <body>
     <div id="mlproject"></div>  
+ 
+    <py-script>
 <form action='index.html'  id='index'>
 <p> <label for="userinput"> Enter a messsage to check if it is a spam: </label> </p>
 <textarea id="userinput" name="userinput" rows="4" cols="50"> </textarea>
 <br>
 <input type="submit" value="Submit">
-</form>  
-    <py-script>
+</form>
 import numpy as np
 import pandas as pd
 from js import document
